@@ -208,29 +208,106 @@ namespace NeSpeak
 		/// </summary>
 		AUDIO_OUTPUT_SYNCH_PLAYBACK
 	}
-
+	
+	/// <summary>
+	/// Event types, for handling in the callback function.
+	/// </summary>
 	public enum espeak_EVENT_TYPE
 	{
+		/// <summary>
+		/// Retrieval mode: terminates the event list.
+		/// </summary>
 		espeakEVENT_LIST_TERMINATED = 0,
-		// Retrieval mode: terminates the event list.
+		/// <summary>
+		/// Start of word
+		/// </summary>
 		espeakEVENT_WORD = 1,
-		// Start of word
+		/// <summary>
+		/// Start of sentence
+		/// </summary>
 		espeakEVENT_SENTENCE = 2,
-		// Start of sentence
+		/// <summary>
+		/// Mark
+		/// </summary>
 		espeakEVENT_MARK = 3,
-		// Mark
+		/// <summary>
+		/// Audio element
+		/// </summary>
 		espeakEVENT_PLAY = 4,
-		// Audio element
+		/// <summary>
+		/// End of sentence or clause
+		/// </summary>
 		espeakEVENT_END = 5,
-		// End of sentence or clause
+		/// <summary>
+		/// End of message
+		/// </summary>
 		espeakEVENT_MSG_TERMINATED = 6,
-		// End of message
+		/// <summary>
+		/// Phoneme, if enabled in espeak_Initialize()
+		/// </summary>
 		espeakEVENT_PHONEME = 7,
-		// Phoneme, if enabled in espeak_Initialize()
+		/// <summary>
+		/// internal use, set sample rate
+		/// </summary>
 		espeakEVENT_SAMPLERATE = 8
-		// internal use, set sample rate
+	}
+	
+	/// <summary>
+	/// Events for the callback function to interpret.
+	/// </summary>
+	public struct espeak_EVENT
+	{
+		/// <summary>
+		/// What kind of event this is.
+		/// </summary>
+		espeak_EVENT_TYPE type;
+		/// <summary>
+		/// message identifier (or 0 for key or character)
+		/// </summary>
+		int unique_identifier;
+		/// <summary>
+		/// the number of characters from the start of the text
+		/// </summary>
+		int text_position;
+		/// <summary>
+		/// word length, in characters (for espeakEVENT_WORD)
+		/// </summary>
+		int length;
+		/// <summary>
+		/// the time in mS within the generated speech output data
+		/// </summary>
+		int audio_position;
+		/// <summary>
+		/// sample id (internal use)
+		/// </summary>
+		int sample;
+		/// <summary>
+		/// pointer supplied by the calling program
+		/// </summary>
+		IntPtr user_data;
+		/// <summary>
+		/// Event type ID.
+		/// </summary>
+		type_id id;
 	}
 
+
+
+	/// <summary>
+	/// Identifies the event type.
+	/// </summary>
+	public struct type_id
+	{
+		/// <summary>
+		/// used for WORD and SENTENCE events. For PHONEME events this is the phoneme mnemonic.
+		/// </summary>
+		int number;
+		/// <summary>
+		/// used for MARK and PLAY events.  UTF8 string
+		/// </summary>
+		string name;
+	}
+	
 	public enum espeak_POSITION_TYPE
 	{
 		POS_CHARACTER = 1,
@@ -244,31 +321,6 @@ namespace NeSpeak
 		EE_INTERNAL_ERROR = -1,
 		EE_BUFFER_FULL = 1,
 		EE_NOT_FOUND = 2
-	}
-
-	public struct espeak_EVENT
-	{
-		espeak_EVENT_TYPE type;
-		int unique_identifier;
-		// message identifier (or 0 for key or character)
-		int text_position;
-		// the number of characters from the start of the text
-		int length;
-		// word length, in characters (for espeakEVENT_WORD)
-		int audio_position;
-		// the time in mS within the generated speech output data
-		int sample;
-		// sample id (internal use)
-		IntPtr user_data;
-		// pointer supplied by the calling program
-		type_id id;
-	}
-	public struct type_id
-	{
-		int number;
-		// used for WORD and SENTENCE events. For PHONEME events this is the phoneme mnemonic.
-		string name;
-		// used for MARK and PLAY events.  UTF8 string
 	}
 	#endregion
 }
