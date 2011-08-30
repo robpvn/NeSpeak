@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeSpeak", "NeSpeak\NeSpeak.csproj", "{9EE59ECE-C892-4878-AD23-746ED700DE32}"
+EndProject
+Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "Packages", "Packages.mdproj", "{A7BCBF56-8423-4972-8E0F-256BF6A3E2DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeSpeakTest", "NeSpeakTest\NeSpeakTest.csproj", "{4759874A-DBFD-4F58-8C64-156464E43CF5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4759874A-DBFD-4F58-8C64-156464E43CF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4759874A-DBFD-4F58-8C64-156464E43CF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4759874A-DBFD-4F58-8C64-156464E43CF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4759874A-DBFD-4F58-8C64-156464E43CF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EE59ECE-C892-4878-AD23-746ED700DE32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EE59ECE-C892-4878-AD23-746ED700DE32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EE59ECE-C892-4878-AD23-746ED700DE32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EE59ECE-C892-4878-AD23-746ED700DE32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7BCBF56-8423-4972-8E0F-256BF6A3E2DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7BCBF56-8423-4972-8E0F-256BF6A3E2DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = NeSpeakTest\NeSpeakTest.csproj
+	EndGlobalSection
+EndGlobal
