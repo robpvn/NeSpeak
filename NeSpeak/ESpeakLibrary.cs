@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.IO;
 namespace NeSpeak
 {
 	public class ESpeakLibrary
@@ -18,7 +19,7 @@ namespace NeSpeak
 		/// <summary>
 		/// Events is actually espeak_events enum TODO: Marshallaed as a constant size array, should figure out the corect size.
 		/// </summary>
-		public delegate int SynthCallBackDelegate (IntPtr wav, int numsamples,[MarshalAs(UnmanagedType.LPArray, SizeConst=50)] int[] events);
+		public delegate int SynthCallBackDelegate (IntPtr wav, int numsamples,[MarshalAs(UnmanagedType.LPArray, SizeConst=50)] IntPtr[] events);
 
 		/// <summary>
 		/// Constructor that sets up eSpeak w/ default values that normally work for synchronous and
@@ -70,21 +71,27 @@ namespace NeSpeak
 			espeak_SetSynthCallback (new SynthCallBackDelegate (OnCallBackReceived));
 		}
 
+
 		/// <summary>
 		/// Is called by the eSpeak library multiple times during synthesis execution and handles
 		/// the returned values.
 		/// </summary>
-		public int OnCallBackReceived (IntPtr wav, int numsamples, [MarshalAs(UnmanagedType.LPArray, SizeConst=50)]int[] events)
+		public int OnCallBackReceived (IntPtr wav, int numsamples, [MarshalAs(UnmanagedType.LPArray, SizeConst=50)]IntPtr[] events)
 		{
-			//TODO: Lots of advanced handling here!
+//			TODO: Lots of advanced handling here!
 			Console.WriteLine ("DEBUG: Callback checking received wav");
 			if (wav == IntPtr.Zero)
 			{
 				Console.WriteLine ("DEBUG: Callback received null value wav!");
+//				CloseWavFile();
 				return 0; //TODO: Close Wav file etc
 			}
 			short managedWav = Marshal.ReadInt16 (wav); //Is a short in native code
 			Console.WriteLine ("DEBUG: Callback received wav equal to: " + managedWav);
+			
+			Console.WriteLine ("DEBUG: Callback investigating event type");
+			espeak_EVENT ev =  (espeak_EVENT) Marshal.PtrToStructure (events[0], typeof (espeak_EVENT));
+			
 			return 0; //Continue synthesis
 		}
 
@@ -147,6 +154,37 @@ namespace NeSpeak
 		}
 		
 		/// <summary>
+		/// Stop immediately synthesis and audio output of the current text. When this
+		/// function returns, the audio output is fully stopped and the synthesizer is ready to
+		/// synthesize a new message.
+		/// </summary>
+		public void Cancel ()
+		{
+			espeak_ERROR result = espeak_Cancel();
+			if (result == espeak_ERROR.EE_INTERNAL_ERROR) {
+				throw new InvalidOperationException ("Internal error in the eSpeak library.");
+			}
+		}
+
+		#region wavefile_generation
+		private int OpenWavFile(string path, int rate)
+		{
+			throw new System.NotImplementedException ();
+		}
+		
+		private void Write4Bytes(FileStream file, int value)
+		{
+//			throw new System.NotImplementedException ();
+		}
+		
+		private void CloseWavFile ()
+		{
+//			throw new System.NotImplementedException ();
+		}
+		
+		#endregion
+		
+		/// <summary>
 		/// This method must be called by all public methods to make sure nothing segfaults
 		/// because the lib has been terminated.
 		/// </summary>
@@ -173,6 +211,9 @@ namespace NeSpeak
 
 		[DllImport("libespeak")]
 		private static extern espeak_ERROR espeak_Terminate ();
+
+		[DllImport("libespeak")]
+		private static extern espeak_ERROR espeak_Cancel();
 
 		[DllImport("libespeak", CharSet=CharSet.Ansi)]
 		private static extern espeak_ERROR espeak_Synth (string text, int text_length, int position, int position_type,
@@ -260,35 +301,35 @@ namespace NeSpeak
 		/// <summary>
 		/// What kind of event this is.
 		/// </summary>
-		espeak_EVENT_TYPE type;
+		public espeak_EVENT_TYPE type;
 		/// <summary>
 		/// message identifier (or 0 for key or character)
 		/// </summary>
-		int unique_identifier;
+		public int unique_identifier;
 		/// <summary>
 		/// the number of characters from the start of the text
 		/// </summary>
-		int text_position;
+		public int text_position;
 		/// <summary>
 		/// word length, in characters (for espeakEVENT_WORD)
 		/// </summary>
-		int length;
+		public int length;
 		/// <summary>
 		/// the time in mS within the generated speech output data
 		/// </summary>
-		int audio_position;
+		public int audio_position;
 		/// <summary>
 		/// sample id (internal use)
 		/// </summary>
-		int sample;
+		public int sample;
 		/// <summary>
 		/// pointer supplied by the calling program
 		/// </summary>
-		IntPtr user_data;
+		public IntPtr user_data;
 		/// <summary>
 		/// Event type ID.
 		/// </summary>
-		type_id id;
+		public type_id id;
 	}
 
 
@@ -301,11 +342,11 @@ namespace NeSpeak
 		/// <summary>
 		/// used for WORD and SENTENCE events. For PHONEME events this is the phoneme mnemonic.
 		/// </summary>
-		int number;
+		public int number;
 		/// <summary>
 		/// used for MARK and PLAY events.  UTF8 string
 		/// </summary>
-		string name;
+		public string name;
 	}
 	
 	public enum espeak_POSITION_TYPE
