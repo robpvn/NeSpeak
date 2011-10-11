@@ -8,10 +8,10 @@ namespace NeSpeakTest
 		public static void Main (string[] args)
 		{
 			Console.WriteLine ("Creating an NeSpeak lib object");
-//			ESpeakLibrary lib = new ESpeakLibrary (); //failsafe defaults
-//			ESpeakLibrary lib = new ESpeakLibrary (espeak_AUDIO_OUTPUT.AUDIO_OUTPUT_PLAYBACK); //Use for live synthesis
-//			ESpeakLibrary lib = new ESpeakLibrary (espeak_AUDIO_OUTPUT.AUDIO_OUTPUT_RETRIEVAL);
-			ESpeakLibrary lib = new ESpeakLibrary (espeak_AUDIO_OUTPUT.AUDIO_OUTPUT_SYNCHRONOUS); //Use for recording to wav
+//			ESpeakLibrary lib = new ESpeakLibrary (); //failsafe defaults, synchronous live synthesis
+			ESpeakLibrary lib = new ESpeakLibrary (espeak_AUDIO_OUTPUT.AUDIO_OUTPUT_PLAYBACK); //Use for live synthesis
+//			ESpeakLibrary lib = new ESpeakLibrary (espeak_AUDIO_OUTPUT.AUDIO_OUTPUT_RETRIEVAL); //For async recording TODO: not completed.
+//			ESpeakLibrary lib = new ESpeakLibrary (espeak_AUDIO_OUTPUT.AUDIO_OUTPUT_SYNCHRONOUS); //Use for sync recording to wav TODO: not completed.
 			
 			Console.WriteLine ("Created, calling a method...");
 			bool isplaying = lib.IsPlaying ();
@@ -28,7 +28,7 @@ namespace NeSpeakTest
 			lib.Synthesize ("This is a test.");
 			
 			Console.WriteLine ("Speaking a long sentence");
-			lib.Synthesize ("This is a test of a long sentence that will be cut short.");
+			lib.Synthesize ("This is a test of a long sentence that will be cut short in async mode.");
 			
 			
 			System.Threading.Thread.Sleep (2500);

@@ -79,17 +79,17 @@ namespace NeSpeak
 		public int OnCallBackReceived (IntPtr wav, int numsamples, [MarshalAs(UnmanagedType.LPArray, SizeConst=50)]IntPtr[] events)
 		{
 //			TODO: Lots of advanced handling here!
-			Console.WriteLine ("DEBUG: Callback checking received wav");
+//			Console.WriteLine ("DEBUG: Callback checking received wav");
 			if (wav == IntPtr.Zero)
 			{
-				Console.WriteLine ("DEBUG: Callback received null value wav!");
+//				Console.WriteLine ("DEBUG: Callback received null value wav!");
 //				CloseWavFile();
 				return 0; //TODO: Close Wav file etc
 			}
 			short managedWav = Marshal.ReadInt16 (wav); //Is a short in native code
-			Console.WriteLine ("DEBUG: Callback received wav equal to: " + managedWav);
+//			Console.WriteLine ("DEBUG: Callback received wav equal to: " + managedWav);
 			
-			Console.WriteLine ("DEBUG: Callback investigating event type");
+//			Console.WriteLine ("DEBUG: Callback investigating event type");
 			espeak_EVENT ev =  (espeak_EVENT) Marshal.PtrToStructure (events[0], typeof (espeak_EVENT));
 			
 			return 0; //Continue synthesis

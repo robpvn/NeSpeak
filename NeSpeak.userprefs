@@ -1,16 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="NeSpeak/ESpeakLibrary.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="NeSpeakTest/Main.cs">
     <Files>
-      <File FileName="NeSpeak/ESpeakLibrary.cs" Line="108" Column="5" />
-      <File FileName="NeSpeakTest/Main.cs" Line="14" Column="53" />
+      <File FileName="NeSpeak/ESpeakLibrary.cs" Line="92" Column="43" />
+      <File FileName="NeSpeakTest/Main.cs" Line="12" Column="58" />
       <File FileName="NeSpeak/NeSpeak.dll.config" Line="2" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/home/rpvn/vcs/NeSpeak/NeSpeak/ESpeakLibrary.cs" line="93" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
